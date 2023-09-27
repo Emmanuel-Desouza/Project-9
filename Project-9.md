@@ -128,7 +128,7 @@ sudo apt-get install jenkins
 
 ### On “Available” tab search for “Publish Over SSH” plugin and install it 
 
-![build](./images/plugin-ssh-install.png)
+![build](./images/plugin-ssh.png)
 
 ### 2. Configure the job/project to copy artifacts over to NFS server.
 ### On main dashboard select “Manage Jenkins” and choose “Configure System” menu item.
