@@ -121,5 +121,56 @@ sudo apt-get install jenkins
 ### Step 3 – Configure Jenkins to copy files to NFS server via SSH
 ### Now we have our artifacts saved locally on Jenkins server, the next step is to copy them to our NFS server to /mnt/apps directory.
 
+### Jenkins is a highly extendable application and there are 1400+ plugins available. We will need a plugin that is called “Publish Over SSH”.
 
+### 1. Install “Publish Over SSH” plugin.
+### On main dashboard select “Manage Jenkins” and choose “Manage Plugins” menu item.
+
+### On “Available” tab search for “Publish Over SSH” plugin and install it 
+
+![build](./images/plugin-ssh-install.png)
+
+### 2. Configure the job/project to copy artifacts over to NFS server.
+### On main dashboard select “Manage Jenkins” and choose “Configure System” menu item.
+
+### Scroll down to Publish over SSH plugin configuration section and configure it to be able to connect to your NFS server:
+
+### 1. Provide a private key (content of .pem file that you use to connect to NFS server via SSH/Putty)
+### 2. Arbitrary name
+### 3. Hostname – can be private IP address of your NFS server
+### 4. Username – ec2-user (since NFS server is based on EC2 with RHEL 8)
+### 5. Remote directory – /mnt/apps since our Web Servers use it as a mointing point to retrieve files from the NFS server
+### Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
+
+
+![test configuration](./images/test-configuration.png)
+
+### Save the configuration, open your Jenkins job/project configuration page and add another one “Post-build Action”
+
+![build](./images/build.png)
+
+### Configure it to send all files produced by the build into our previously define remote directory. In our case we want to copy all files and directories – so we use **.
+
+![send build](./images/send-build.png)
+
+### Save this configuration and go ahead, change something in README.MD file in your GitHub Tooling repository.
+
+![new build](./images/new-build.png)
+
+### Webhook will trigger a new job and in the “Console Output” of the job you will find something like this:
+
+![success](./images/finished-success.png)
+
+### To make sure that the files in /mnt/apps have been updated – connect via SSH/Putty to your NFS server and check README.MD file
+
+`cat /mnt/apps/README.md`
+
+### If I see the changes I previously made in my GitHub – the job worked as expected.
+
+![cat success](./images/cat-success.png)
+
+
+# Success
+
+### I have just implemented my first Continuous Integration solution using Jenkins CI. Watch out for advanced CI configurations in upcoming projects.
 
