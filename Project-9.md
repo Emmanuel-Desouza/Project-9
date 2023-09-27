@@ -107,9 +107,9 @@ sudo apt-get install jenkins
 
 ### You will see that a new build has been launched automatically (by webhook) and you can see its results – artifacts, saved on Jenkins server.
 
-![build](./images/build-launch.png)
+![build](./images/cat.png)
 
-![build](./images/build-launch2.png)
+![second build](./images/cat1.png)
 ### I have now configured an automated Jenkins job that receives files from GitHub by webhook trigger (this method is considered as ‘push’ because the changes are being ‘pushed’ and files transfer is initiated by GitHub). There are also other methods: trigger one job (downstreadm) from another (upstream), poll GitHub periodically and others.
 
 ### By default, the artifacts are stored on Jenkins server locally
@@ -143,7 +143,7 @@ sudo apt-get install jenkins
 ### Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
 
 
-![test configuration](./images/test-configuration.png)
+![test configuration](./images/cat2.png)
 
 ### Save the configuration, open your Jenkins job/project configuration page and add another one “Post-build Action”
 
@@ -155,11 +155,11 @@ sudo apt-get install jenkins
 
 ### Save this configuration and go ahead, change something in README.MD file in your GitHub Tooling repository.
 
-![new build](./images/new-build.png)
+![new build](./images/cat3.png)
 
 ### Webhook will trigger a new job and in the “Console Output” of the job you will find something like this:
 
-![success](./images/finished-success.png)
+![success](./images/cat4.png)
 
 ### To make sure that the files in /mnt/apps have been updated – connect via SSH/Putty to your NFS server and check README.MD file
 
@@ -167,7 +167,7 @@ sudo apt-get install jenkins
 
 ### If I see the changes I previously made in my GitHub – the job worked as expected.
 
-![cat success](./images/cat-success.png)
+![cat success](./images/cat5.png)
 
 
 # Success
